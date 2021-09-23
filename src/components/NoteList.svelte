@@ -12,7 +12,6 @@
   import NoteItem from './NoteItem.svelte'
 
   export let notes
-  console.log(notes)
 </script>
 
 <style lang="scss">

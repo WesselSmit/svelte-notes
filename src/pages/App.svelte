@@ -1,6 +1,6 @@
 <main class="app">
   <Sidebar {focussedNote} />
-  <Note
+  <NoteList
     {notes}
     on:focusNoteItem={setFocussedNote}
     on:saveNoteItem={postNotes}
@@ -9,27 +9,28 @@
 
 <script>
   import Sidebar from '../components/Sidebar.svelte'
-  import Note from '../components/Note.svelte'
+  import NoteList from '../components/NoteList.svelte'
 
-  let notes
+  let notes = []
   let focussedNote = null
 
   getNotes()
 
   function getNotes() {
     if (!window.localStorage.notes) {
-      notes = [{
-        id: 0,
-        type: "body",
-        content: ""
-      }]
+      newNote()
       return
     }
     notes = JSON.parse(window.localStorage.notes)
   }
 
+  function newNote() {
+    notes = [...notes, { id: 0, type: "new", content: "" }]
+    postNotes()
+  }
+
   function postNotes() {
-    window.localStorage.notes = JSON.stringify(notes || [])
+    window.localStorage.notes = JSON.stringify(notes)
   }
 
   function setFocussedNote(event) {
