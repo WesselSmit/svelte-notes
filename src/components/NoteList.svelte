@@ -1,9 +1,12 @@
 <section class="note">
-  {#each notes as note }
+  {#each notes as note, index }
     <NoteItem
       {note}
+      {index}
+      {isOnlyNote}
       on:updateTextType
-      on:saveNoteItem
+      on:saveNotes
+      on:newNote
     />
   {/each}
 </section>
@@ -12,6 +15,7 @@
   import NoteItem from './NoteItem.svelte'
 
   export let notes
+  let isOnlyNote = notes.length === 1
 </script>
 
 <style lang="scss">

@@ -3,7 +3,8 @@
   <NoteList
     {notes}
     on:updateTextType={updateTextType}
-    on:saveNoteItem={postNotes}
+    on:saveNotes={postNotes}
+    on:newNote={newNote}
   />
 </main>
 
@@ -24,8 +25,16 @@
     notes = JSON.parse(window.localStorage.notes)
   }
 
-  function newNote() {
-    notes = [...notes, { id: 0, type: "new", content: "" }]
+  function newNote(e) {
+    const newNote = { id: notes.length, type: "new", content: "" }
+
+    if (e) {
+      const index = e.detail + 1
+      notes.splice(index, 0, newNote)
+      notes = notes
+    } else {
+      notes = [...notes, newNote]
+    }
     postNotes()
   }
 

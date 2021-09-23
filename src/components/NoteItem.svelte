@@ -1,17 +1,20 @@
 <textarea
   type="text"
   class="note-item {typeClass}"
+  {index}
   value={note.content}
   placeholder={note.type === 'new' ? 'Start typing..' : null}
   bind:this={noteRef}
   on:focus={handleFocus}
-  on:input={handleChange}
+  on:keydown={handleKey}
 />
 
 <script>
   import { onMount, createEventDispatcher } from 'svelte'
 
   export let note
+  export let index
+  export let isOnlyNote
   let noteRef
 
   const dispatch = createEventDispatcher()
@@ -21,14 +24,23 @@
     dispatch('updateTextType', note.type)
   }
 
-  function handleChange(e) {
-    note.content = e.target.value.trimEnd()
-    dispatch('saveNoteItem')
-    setTextAreaHeight()
+  function handleKey(e) {
+    if (e.key === 'Enter') {
+      if (e.target.value.trim() === "") {
+        e.preventDefault()
+      } else {
+        dispatch('newNote', index)
+        noteRef.blur()
+      }
+    } else {
+      note.content = e.target.value
+      dispatch('saveNotes')
+      setTextAreaHeight()
 
-    if (note.type === 'new') {
-      note.type = 'body'
-      dispatch('updateTextType', note.type)
+      if (note.type === 'new' && note.content.trim() !== "") {
+        note.type = 'body'
+        dispatch('updateTextType', note.type)
+      }
     }
   }
 
@@ -39,7 +51,15 @@
     }
   }
 
-  onMount(setTextAreaHeight)
+  onMount(() => {
+    setTextAreaHeight()
+    if (isOnlyNote) {
+      noteRef.focus()
+    }
+    if (note.type === 'new') {
+      noteRef.focus()
+    }
+  })
 </script>
 
 <style lang="scss">
