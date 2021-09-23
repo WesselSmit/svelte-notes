@@ -3,7 +3,7 @@
     <ul class="options-list__list">
       {#each items as item }
         <li class="options-list__item">
-          <input type="radio" id={`${name}-${item}`} {name} value={item} checked={item === focussedNote}>
+          <input type="radio" id={`${name}-${item}`} {name} value={item} checked={item === textType}>
           <label for={`${name}-${item}`}>{ item }</label>
         </li>
       {/each}
@@ -14,7 +14,7 @@
 <script>
   export let name
   export let items = []
-  export let focussedNote
+  export let textType
 </script>
 
 <style lang="scss">

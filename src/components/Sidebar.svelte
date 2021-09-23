@@ -5,16 +5,16 @@
   </header>
 
   <OptionsList
-    name='textStyling'
+    name='textTypes'
     items={options}
-    {focussedNote}
+    {textType}
   />
 </aside>
 
 <script>
   import OptionsList from './OptionsList.svelte'
 
-  export let focussedNote
+  export let textType
 
   const options = ['heading', 'body', 'bold']
 </script>

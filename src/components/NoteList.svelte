@@ -2,7 +2,7 @@
   {#each notes as note }
     <NoteItem
       {note}
-      on:focusNoteItem
+      on:updateTextType
       on:saveNoteItem
     />
   {/each}

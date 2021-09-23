@@ -1,8 +1,8 @@
 <main class="app">
-  <Sidebar {focussedNote} />
+  <Sidebar {textType} />
   <NoteList
     {notes}
-    on:focusNoteItem={setFocussedNote}
+    on:updateTextType={updateTextType}
     on:saveNoteItem={postNotes}
   />
 </main>
@@ -12,7 +12,7 @@
   import NoteList from '../components/NoteList.svelte'
 
   let notes = []
-  let focussedNote = null
+  let textType = null
 
   getNotes()
 
@@ -33,8 +33,8 @@
     window.localStorage.notes = JSON.stringify(notes)
   }
 
-  function setFocussedNote(event) {
-    focussedNote = event.detail
+  function updateTextType(event) {
+    textType = event.detail
   }
 </script>
 

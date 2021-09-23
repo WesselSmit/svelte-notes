@@ -18,13 +18,18 @@
   const typeClass = note.type ? 'note-item--' + note.type : ''
 
   function handleFocus() {
-    dispatch('focusNoteItem', note.type)
+    dispatch('updateTextType', note.type)
   }
 
   function handleChange(e) {
     note.content = e.target.value.trimEnd()
     dispatch('saveNoteItem')
     setTextAreaHeight()
+
+    if (note.type === 'new') {
+      note.type = 'body'
+      dispatch('updateTextType', note.type)
+    }
   }
 
   function setTextAreaHeight() {
