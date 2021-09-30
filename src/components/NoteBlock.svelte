@@ -20,7 +20,7 @@
     if (e.key === 'Enter') {
       e.preventDefault()
 
-      note.addNoteBlock()
+      note.addNoteBlock(block.id)
     }
   }
 

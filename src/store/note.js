@@ -10,13 +10,14 @@ function noteStore() {
   const { subscribe, update } = writable(note)
 
 
-  function addNoteBlock() {
-    const newBlock = createNewNoteBlock()
-
+  function addNoteBlock(currentBlockId) {
     update(state => {
-      const updatedState = [...state, newBlock] // todo this line always adds the newBlock to the end of the array, if a note has 3 blocks and the user presses enter in block 1, the newBlock should be inserted between block 1 and 2 (right now it would get inserted after block 3)
+      const newBlock = createNewNoteBlock()
+      const currentBlockIndex = state.findIndex(block => block.id === currentBlockId)
 
-      return storage.update('note', updatedState)
+      state.splice(currentBlockIndex + 1, 0, newBlock)
+
+      return storage.update('note', state)
     })
 
     return newBlock
