@@ -1,14 +1,23 @@
-export function localStorageIsAvailable(){
+const localStorageIsAvailable = () => {
   const x = 'x'
 
   try {
-    localStorage.setItem(x, x)
-    localStorage.removeItem(x)
+    window.localStorage.setItem(x, x)
+    window.localStorage.removeItem(x)
 
     return true
   } catch(e) {
     return false
   }
+}
+
+
+export function get(prop) {
+  if (!localStorageIsAvailable) throw 'localStorage is not available'
+
+
+  const stringifiedVal = window.localStorage.getItem(prop)
+  return JSON.parse(stringifiedVal)
 }
 
 
@@ -20,10 +29,10 @@ export function post(prop, val) {
 }
 
 
-export function get(prop) {
+export function update(prop, val) {
   if (!localStorageIsAvailable) throw 'localStorage is not available'
 
+  post(prop, val)
 
-  const stringifiedVal = window.localStorage.getItem(prop)
-  return JSON.parse(stringifiedVal)
+  return get(prop)
 }

@@ -1,6 +1,6 @@
 import { writable } from 'svelte/store'
 import { v4 as uid } from 'uuid'
-import { get as getFromStorage, post as postToStorage } from '../modules/storage'
+import { get as getFromStorage, post as postToStorage, update as updateStorage } from '../modules/storage'
 
 export const note = noteStore()
 
@@ -16,9 +16,7 @@ function noteStore() {
     update(state => {
       const updatedState = [...state, newBlock]
 
-      postToStorage('note', updatedState)
-
-      return getFromStorage('note')
+      return updateStorage('note', updatedState)
     })
 
     return newBlock
@@ -29,10 +27,8 @@ function noteStore() {
       const blockIndex = state.findIndex(block => block.id === updatedBlock.id)
 
       state[blockIndex] = updatedBlock
-      postToStorage('note', state)
 
-
-      return getFromStorage('note')
+      return updateStorage('note', state)
     })
   }
 
