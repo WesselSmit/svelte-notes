@@ -1,6 +1,6 @@
 import { writable } from 'svelte/store'
 import { v4 as uid } from 'uuid'
-import { get as getFromStorage, post as postToStorage, update as updateStorage } from '../modules/storage'
+import storage from '../modules/storage'
 
 export const note = noteStore()
 
@@ -14,9 +14,9 @@ function noteStore() {
     const newBlock = createNewNoteBlock()
 
     update(state => {
-      const updatedState = [...state, newBlock]
+      const updatedState = [...state, newBlock] // todo this line always adds the newBlock to the end of the array, if a note has 3 blocks and the user presses enter in block 1, the newBlock should be inserted between block 1 and 2 (right now it would get inserted after block 3)
 
-      return updateStorage('note', updatedState)
+      return storage.update('note', updatedState)
     })
 
     return newBlock
@@ -28,7 +28,7 @@ function noteStore() {
 
       state[blockIndex] = updatedBlock
 
-      return updateStorage('note', state)
+      return storage.update('note', state)
     })
   }
 
@@ -41,7 +41,7 @@ function noteStore() {
 
 
 function getNoteFromStorage() {
-  const noteFromStorage = getFromStorage('note')
+  const noteFromStorage = storage.get('note')
 
   if (!noteFromStorage) {
     createNewNoteInStorage()
@@ -56,7 +56,7 @@ function getNoteFromStorage() {
 function createNewNoteInStorage() {
   const newNote = [createNewNoteBlock()]
 
-  postToStorage('note', newNote)
+  storage.post('note', newNote)
 }
 
 
