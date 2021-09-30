@@ -15,25 +15,19 @@
   export let block
 
 
-  // used to prevent textarea from inserting a newline character (will still fire keyup event)
+  // prevent textarea from newline insertion (will still fire keyup event)
   function handleKeyDown(e) {
     if (e.key === 'Enter') {
       e.preventDefault()
     }
   }
 
-  // used to update note content in store
+  // update note in store
   function handleKeyUp(e) {
-    if (e.key === 'Enter') return // prevent note from updating when enter is pressed because updating the note will also update the textarea
+    if (e.key === 'Enter') return
 
-    if (e.key === 'Enter') {
-      console.log('user pressed enter')
-    } else {
-      console.log('user pressed a key that is not enter')
-      block.content = e.target.value
-      note.updateNoteBlock(block)
-      console.log($note)
-    }
+    block.content = e.target.value
+    note.updateNoteBlock(block)
   }
 </script>
 
