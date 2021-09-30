@@ -3,7 +3,7 @@
     {#each $noteBlocks as block, index}
       <NoteBlock
         {block}
-        isLast={index === $noteBlocks.length - 1} />
+        isLast={isLast(index)} />
     {/each}
   </ul>
 </div>
@@ -11,6 +11,9 @@
 <script>
   import { note as noteBlocks } from '../store/note.js'
   import NoteBlock from './NoteBlock.svelte'
+
+
+  const isLast = index => index === $noteBlocks.length - 1
 </script>
 
 <style lang="scss">

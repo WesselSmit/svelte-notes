@@ -17,6 +17,7 @@
   export let isLast
   let noteBlockRef
 
+
   function handleKeyDown(e) {
     // prevent textarea from newline insertion (will still fire keyup event)
     if (e.key === 'Enter') {
