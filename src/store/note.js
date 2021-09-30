@@ -19,8 +19,6 @@ function noteStore() {
 
       return storage.update('note', state)
     })
-
-    return newBlock
   }
 
   function updateNoteBlock(updatedBlock) {
