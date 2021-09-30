@@ -20,8 +20,7 @@
     if (e.key === 'Enter') {
       e.preventDefault()
 
-      const newBlock = note.addNoteBlock()
-      console.log('added new block: ', newBlock)
+      note.addNoteBlock()
     }
   }
 

@@ -1,52 +1,38 @@
 import { writable } from 'svelte/store'
 import { v4 as uid } from 'uuid'
+import { get as getFromStorage, post as postToStorage } from '../modules/storage'
 
-export const note = createNote()
+export const note = noteStore()
 
 
-function createNote() {
-  // todo this is hardcoded to mock the behaviour of the localStorage logic that has yet to be written
-  const noteFromStorage = [
-    {
-      id: uid(),
-      type: 'body',
-      content: 'This is some note content'
-    },
-    {
-      id: uid(),
-      type: 'body',
-      content: 'This is some more note content'
-    },
-    {
-      id: uid(),
-      type: 'body',
-      content: 'This is some other note content'
-    }
-  ]
-  // const noteFromStorage = []
-  const defaultNote = [{ id: uid(), type: 'new', content: '' }] // todo als defaultnote gebruikt wordt dan moet deze ook in de storage opgeslagen worden
-  const notes = noteFromStorage.length ? noteFromStorage : defaultNote
+function noteStore() {
+  const note = getNoteFromStorage()
+  const { subscribe, update } = writable(note)
 
-  const { subscribe, update } = writable(notes)
 
   function addNoteBlock() {
-    const newBlock = {
-      id: uid(),
-      type: 'new',
-      content: ''
-    }
+    const newBlock = createNewNoteBlock()
 
-    update(state => [...state, newBlock])
+    update(state => {
+      const updatedState = [...state, newBlock]
+
+      postToStorage('note', updatedState)
+
+      return getFromStorage('note')
+    })
 
     return newBlock
   }
 
-  function updateNoteBlock(newBlock) {
+  function updateNoteBlock(updatedBlock) {
     update(state => {
-      const blockIndex = state.findIndex(block => block.id === newBlock.id)
-      state[blockIndex] = newBlock
+      const blockIndex = state.findIndex(block => block.id === updatedBlock.id)
 
-      return state
+      state[blockIndex] = updatedBlock
+      postToStorage('note', state)
+
+
+      return getFromStorage('note')
     })
   }
 
@@ -54,5 +40,34 @@ function createNote() {
     subscribe,
     addNoteBlock,
     updateNoteBlock
+  }
+}
+
+
+function getNoteFromStorage() {
+  const noteFromStorage = getFromStorage('note')
+
+  if (!noteFromStorage) {
+    createNewNoteInStorage()
+
+    return getNoteFromStorage()
+  }
+
+  return noteFromStorage
+}
+
+
+function createNewNoteInStorage() {
+  const newNote = [createNewNoteBlock()]
+
+  postToStorage('note', newNote)
+}
+
+
+function createNewNoteBlock() {
+  return {
+    id: uid(),
+    type: 'new',
+    content: ''
   }
 }
