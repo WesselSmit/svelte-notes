@@ -3,17 +3,18 @@
     class="note-block__input {'note-block__input--' + block.type}"
     type="text"
     value={block.content}
-    placeholder={block.type === 'new' ? 'Start typing..' : null}
+    bind:this={noteBlockRef}
     on:keydown={handleKeyDown}
     on:keyup={handleKeyUp}
   />
 </li>
 
 <script>
+  import { onMount } from 'svelte'
   import { note } from '../store/note.js'
 
   export let block
-
+  let noteBlockRef
 
   function handleKeyDown(e) {
     // prevent textarea from newline insertion (will still fire keyup event)
@@ -31,6 +32,13 @@
     block.content = e.target.value
     note.updateNoteBlock(block)
   }
+
+  onMount(() => {
+    if (block.type === 'new') {
+      noteBlockRef.focus()
+      block.type = 'body'
+    }
+  })
 </script>
 
 <style lang="scss">
