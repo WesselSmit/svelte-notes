@@ -1,26 +1,25 @@
-<section class="note">
-  {#each notes as note, index }
-    <NoteItem
-      {note}
-      {index}
-      {isOnlyNote}
-      on:updateTextType
-      on:saveNotes
-      on:newNote
-    />
-  {/each}
-</section>
+<div class="note-list">
+  <ul class="note-list__list">
+    {#each $noteBlocks as block}
+      <NoteBlock {block} />
+    {/each}
+  </ul>
+</div>
 
 <script>
-  import NoteItem from './NoteItem.svelte'
-
-  export let notes
-  let isOnlyNote = notes.length === 1
+  import { note as noteBlocks } from '../store/note.js'
+  import NoteBlock from './NoteBlock.svelte'
 </script>
 
 <style lang="scss">
-  .note {
-    display: flex;
-    flex-direction: column;
+  .note-list {
+    &__list {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
   }
 </style>
