@@ -1,8 +1,8 @@
 <li class="note-block">
   <textarea
-    class="note-block__input {'note-block__input--' + block.type}"
     type="text"
     value={block.content}
+    class="note-block__input {'note-block__input--' + block.type}"
     bind:this={noteBlockRef}
     on:keydown={handleKeyDown}
     on:keyup={handleKeyUp}
@@ -14,6 +14,7 @@
   import { note } from '../store/note.js'
 
   export let block
+  export let isLast
   let noteBlockRef
 
   function handleKeyDown(e) {
@@ -40,7 +41,7 @@
   }
 
   onMount(() => {
-    if (block.type === 'new') {
+    if (isLast && block.type === 'new') {
       noteBlockRef.focus()
     }
   })

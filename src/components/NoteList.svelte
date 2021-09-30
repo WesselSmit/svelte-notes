@@ -1,7 +1,9 @@
 <div class="note-list">
   <ul class="note-list__list">
-    {#each $noteBlocks as block}
-      <NoteBlock {block} />
+    {#each $noteBlocks as block, index}
+      <NoteBlock
+        {block}
+        isLast={index === $noteBlocks.length - 1} />
     {/each}
   </ul>
 </div>
