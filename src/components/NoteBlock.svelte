@@ -41,7 +41,7 @@
   }
 
   onMount(() => {
-    if (isLast && block.type === 'new') {
+    if (block.type === 'new' && isLast) {
       noteBlockRef.focus()
     }
   })
