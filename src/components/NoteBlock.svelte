@@ -29,6 +29,12 @@
   function handleKeyUp(e) {
     if (e.key === 'Enter') return
 
+    const isEmptyInput = !e.target.value.trim()
+
+    if (block.type === 'new' && !isEmptyInput) {
+      block.type = 'body'
+    }
+
     block.content = e.target.value
     note.updateNoteBlock(block)
   }
@@ -36,7 +42,6 @@
   onMount(() => {
     if (block.type === 'new') {
       noteBlockRef.focus()
-      block.type = 'body'
     }
   })
 </script>
