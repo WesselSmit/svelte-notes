@@ -1,6 +1,6 @@
 <li class="note-block">
   <textarea
-    class="note-block__input {block.type}"
+    class="note-block__input {'note-block__input--' + block.type}"
     type="text"
     value={block.content}
     placeholder={block.type === 'new' ? 'Start typing..' : null}
@@ -15,10 +15,13 @@
   export let block
 
 
-  // prevent textarea from newline insertion (will still fire keyup event)
   function handleKeyDown(e) {
+    // prevent textarea from newline insertion (will still fire keyup event)
     if (e.key === 'Enter') {
       e.preventDefault()
+
+      const newBlock = note.addNoteBlock()
+      console.log('added new block: ', newBlock)
     }
   }
 
