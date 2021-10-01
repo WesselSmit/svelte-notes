@@ -1,9 +1,11 @@
 <aside class="sidebar">
   <h1 class="sidebar__title">Web Notes</h1>
+
+  <StylingOptionList />
 </aside>
 
 <script>
-
+  import StylingOptionList from './StylingOptionList.svelte'
 </script>
 
 <style lang="scss">
@@ -14,7 +16,7 @@
     border-right: 1px solid var(--clr-primary);
 
     &__title {
-      margin: 0;
+      margin: 0 0 var(--spc-medium);
     }
   }
 </style>
