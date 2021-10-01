@@ -57,7 +57,7 @@
     &__input {
       width: 100%;
       height: 100%;
-      padding: 0 2rem;
+      padding: 0 var(--spc-medium);
       font-size: 1rem;
 
       &:focus {

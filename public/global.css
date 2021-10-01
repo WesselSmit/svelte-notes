@@ -1,23 +1,40 @@
-* {
-	box-sizing: border-box;
+:root {
+  /* colors */
+  --clr-primary: red;
+  --clr-text: black;
+  --clr-background: white;
+
+  /* spacings */
+  --spc-medium: 2rem;
+
+  /* sizes */
+  --size-sidebar: 300px;
 }
 
-html, body {
-	position: relative;
-	width: 100%;
-	height: 100%;
+* {
+	box-sizing: border-box;
+  color: var(--clr-text);
+}
+
+html {
+  background-color: var(--clr-primary);
 }
 
 body {
+  position: relative;
+	width: 100%;
+	height: 100%;
 	margin: 0;
 	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  background-color: var(--clr-background);
 }
 
 h1 {
   font-size: 2.5rem;
 }
 
-ul, ol {
+ul,
+ol {
   margin: 0;
   padding: 0;
   list-style: none;
