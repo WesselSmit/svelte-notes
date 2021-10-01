@@ -25,6 +25,7 @@ ul, ol {
 
 textarea {
   padding: 0;
+  background-color: inherit;
   font-family: inherit;
   border: none;
   resize: none;
