@@ -1,11 +1,11 @@
 <main class="app">
   <Sidebar />
-  <NoteList />
+  <NoteBlockList />
 </main>
 
 <script>
   import Sidebar from '../components/Sidebar.svelte'
-  import NoteList from '../components/NoteList.svelte'
+  import NoteBlockList from '../components/NoteBlockList.svelte'
 </script>
 
 <style lang="scss">
